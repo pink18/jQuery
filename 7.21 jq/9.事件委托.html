@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="./js/jquery-3.4.0.js"></script>
+</head>
+
+<body>
+    <div class="wrap">
+        <h2>01</h2>
+        <h2>02</h2>
+        <h2>03</h2>
+        <h2>04</h2>
+        <h2>05</h2>
+        我是内容
+    </div>
+
+    <script>
+        var h2=$('h2');
+        // console.log(h2);
+        $('.wrap').on('click',h2,function(e){
+            // 获取绑定事件元素
+            // console.log($(this));
+            // console.log($(e.currentTarget));
+
+
+            // 获取触发事件元素
+            console.log($(e.target));
+            console.log(e.target);
+            $('h2').css({
+                color:'#000'
+            })
+            e.target.localName=='h2'
+            ?$(e.target).css({color:'red'})
+            :$(e.target).css({color:''})
+        })
+    </script>
+</body>
+
+</html>

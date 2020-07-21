@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="./js/jquery-3.4.0.js"></script>
+    <style>
+        .wrap{
+            width: 100px;
+            height: 100px;
+            background-color: red;
+            position: absolute;
+            top: 300px;
+            left: 200px;
+        }
+        .box{
+            width: 20px;
+            height: 20px;
+            position: absolute;
+            left: 50px;
+            background-color: aqua;
+        }
+    </style>
+</head>
+<body>
+    <div class="wrap">
+        <div class="box"></div>
+    </div>
+    <script>
+        $(window).ready(function(){
+            for(var i=0;i<100;i++){
+                $('body').append('<p>内容</p>')
+            }
+            // 获取滚动条滚动高度
+            $(document).on('scroll',function(){
+                // console.log(1);
+                var top=$(document).scrollTop();
+                console.log(top);
+            })
+        })
+
+        // 获取元素位置的偏移量
+        var obj=$('.wrap').offset();
+        console.log(obj);
+        // box() 元素相对父元素的偏移量
+        var box=$('.box').offset();
+        console.log(box);
+    </script>
+</body>
+</html>

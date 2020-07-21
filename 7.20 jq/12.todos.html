@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="./js/jquery-3.4.0.js"></script>
+</head>
+
+<body>
+    <input type="text" name="" id="">
+    <div class="content">
+        <p>我是内容</p>
+    </div>
+    <script>
+        $('p').on('click', function () {
+            //  console.log($(this));
+            $(this).fadeOut(500, function () {
+                $(this).remove();
+            });
+        })
+
+        $('input[type=text]').on('keydown', function (e) {
+            // console.log(e);
+            if (e.keyCode == 13) {
+                // val() 获取input的val值
+                // 没参获取 有参设置
+                var val = $('input[type=text]').val();
+                var p = `<p>${val}</p>`;
+                // 插入p标签 有淡出动画效果
+                p = $(p).css({
+                    display: 'none'
+                })
+                $('.content').append(p);
+                $(p).fadeIn(500);
+                $('input[type=text]').val('');
+
+                // 获取所有的p
+                // $(p).on('click', function () {
+                //     console.log($(this));
+                //     $(this).remove();
+                // })
+
+                $(p).on('click', function () {
+                    //  console.log($(this));
+                    $(this).fadeOut(500, function () {
+                        $(this).remove();
+                    });
+                })
+            }
+        })
+    </script>
+</body>
+
+</html>

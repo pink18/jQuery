@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div>123</div>
+
+    <script>
+        // 需求 $this
+        function $(str) {
+            return new jQuery(str);
+        }
+
+        function jQuery(el) {
+            this.el = document.querySelector(el);
+        }
+
+        // jQuery 原型对象下的所有属性 都可以通过jQuery构造函数实例化的对象直接访问
+        jQuery.prototype = {
+            html: function (str) {
+                // console.log(this.el);
+                this.el.innerHTML = str;
+                return this;
+            },
+            css: function (option) {
+                for (var x in option) {
+                    this.el.style[x] = option[x];
+                }
+                return this;
+            }
+        }
+        // console.log($('div'));
+        // 1.链式调用 所有的API返回同一个对象
+
+        jQuery.prototype.hide = function () {
+            var val = 1;
+            this.el.style.opacity = val;
+            var timer = setInterval(() => {
+                val -= 0.1;
+                if (val <= 0) {
+                    this.el.style.opacity = 0;
+                    this.el.style.display = 'none';
+                    clearInterval(timer);
+                    return;
+                }
+                this.el.style.opacity = val;
+            }, 30);
+            return this;
+        };
+        
+        $('div').html('我很好').css({
+            color: 'red'
+        }).hide();
+    </script>
+</body>
+
+</html>

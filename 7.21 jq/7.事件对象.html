@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="./js/jquery-3.4.0.js"></script>
+</head>
+<body>
+    <h2>内容01</h2>
+    <h2>内容02</h2>
+    <h2>内容03</h2>
+
+    <script>
+        $('h2').on('click',function(event){
+            // 如何获取当前触发事件的元素
+            // $(this)
+            // 注意 event.target 是dom元素
+            console.log(event.target);
+            // event.target.style.color='red'
+            $('h2').css({
+                color:'#000'
+            })
+            $(event.target).css({
+                color:'red'
+            })
+        })
+
+        // jq 性能优化
+        // 1.减少操作dom 数据的次数
+        // 用jq api 修改的都是虚拟dom 当虚拟dom修改完毕后 jq底层会修改dom
+        // jq底层操作dom 程序是异步
+    </script>
+</body>
+</html>

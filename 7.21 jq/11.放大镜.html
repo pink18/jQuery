@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+
+        .glass {
+            width: 635px;
+            margin: 0 auto;
+            position: relative;
+            margin-top: 60px;
+        }
+
+        .glassView {
+            height: 150px;
+            width: 150px;
+            overflow: hidden;
+            position: absolute;
+            left: 75%;
+        }
+
+        .glassView>img {
+            width: 940px;
+            height: 630px;
+            display: none;
+            position: absolute;
+        }
+
+        .bigImage {
+            width: 470px;
+            height: 315px;
+            /* overflow: hidden; */
+            margin-bottom: 5px;
+        }
+
+        .bigImage>img {
+            /* position: absolute; */
+            width: 470px;
+            height: 315px;
+            display: none;
+        }
+
+        .smImage>img {
+            height: 100px;
+            opacity: 0.3;
+        }
+
+        .mark {
+            width: 150px;
+            height: 150px;
+            background-color: #fff;
+            opacity: 0.5;
+            cursor: move;
+            position: absolute;
+            display: none;
+            top: 0;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="glass">
+        <div class="glassView">
+            <img src="../img/1.jpg" alt="">
+            <img src="../img/2.jpg" alt="">
+            <img src="../img/3.jpg" alt="">
+            <img src="../img/4.jpg" alt="">
+        </div>
+        <div class="bigImage">
+            <img src="../img/1.jpg" alt="">
+            <img src="../img/2.jpg" alt="">
+            <img src="../img/3.jpg" alt="">
+            <img src="../img/4.jpg" alt="">
+            <!-- 放大镜标记 -->
+            <div class="mark"></div>
+        </div>
+        <div class="smImage">
+            <img src="../img/1.jpg" alt="">
+            <img src="../img/2.jpg" alt="">
+            <img src="../img/3.jpg" alt="">
+            <img src="../img/4.jpg" alt="">
+        </div>
+    </div>
+    <script src="./js/jquery-3.4.0.js"></script>
+    <script>
+        $(window).ready(function () {
+            var x = 0;
+            $(`.bigImage>img:eq(${x})`).css({
+                display: 'block'
+            });
+            $(`.smImage>img:eq(${x})`).css({
+                opacity: 1
+            });
+
+            // 鼠标移入
+            $('.smImage').on('mouseover', 'img', function () {
+                $(`.smImage>img:eq(${x})`).css({
+                    opacity: 0.3
+                });
+                $(`.bigImage>img:eq(${x})`).css({
+                    display: 'none'
+                });
+                x = $(this).index();
+                $(`.smImage>img:eq(${x})`).css({
+                    opacity: 1
+                });
+                $(`.bigImage>img:eq(${x})`).css({
+                    display: 'block'
+                });
+            })
+
+            $('.bigImage').on('mouseover', function () {
+                $('.mark').css({
+                    display: 'block'
+                });
+                $(`.glassView>img:eq(${x})`).css({
+                    display: 'block',
+                });
+            })
+            $('.bigImage').on('mouseout', function () {
+                $('.mark').css({
+                    display: 'none'
+                });
+                $(`.glassView>img:eq(${x})`).css({
+                    display: 'none'
+                });
+            })
+            $('.bigImage').on('mousemove', function (ev) {
+                var pageX = ev.pageX - $('.bigImage').offset().left;
+                var pageY = ev.pageY - $('.bigImage').offset().top;
+                var maskX = pageX - $('.mark').outerWidth() / 2;
+                var maskY = pageY - $('.mark').outerHeight() / 2;
+                // console.log(maskY)
+                if (maskX <= 0) {
+                    maskX = 0;
+                } else if (maskX >= $('.bigImage').outerWidth() - $('.mark').outerWidth()) {
+                    maskX = $('.bigImage').outerWidth() - $('.mark').outerWidth();
+                }
+                if (maskY <= 0) {
+                    maskY = 0;
+                } else if (maskY >= $('.bigImage').outerHeight() - $('.mark').outerHeight()) {
+                    maskY = $('.bigImage').outerHeight() - $('.mark').outerHeight();
+                }
+                $('.mark').css({
+                    left: maskX + 'px',
+                    top: maskY + 'px'
+                });
+                $(`.glassView>img:eq(${x})`).css({
+                    left:-maskX * 2 +'px',
+                    top:-maskY * 2 +'px'
+                });
+            })
+
+        })
+    </script>
+</body>
+
+</html>
